@@ -33,8 +33,11 @@ const Footer = () => (
         </div>
       </div>
     </div>
-    <div className="border-t border-background/10 text-center py-4 text-xs text-background/50">
-      © 2024 Sangharsh Mahila Mitra Mandal. All rights reserved. | College Demo Project
+    <div className="border-t border-background/10 py-4 text-xs text-background/50 flex items-center justify-center gap-4">
+      <span>© 2024 Sangharsh Mahila Mitra Mandal. All rights reserved. | College Demo Project</span>
+      <Link to="/admin/login" className="inline-flex items-center gap-1 text-background/40 hover:text-primary transition-colors">
+        <Lock className="h-3 w-3" /> Admin
+      </Link>
     </div>
   </footer>
 );
