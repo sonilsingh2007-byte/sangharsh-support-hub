@@ -1,22 +1,22 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Heart, BookOpen, Users, HandHeart, Shield, Stethoscope } from "lucide-react";
+import { Heart, BookOpen, Users, HandHeart, ShieldCheck, Utensils, Shirt, Stethoscope, Megaphone, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import SectionHeading from "@/components/SectionHeading";
 import StatCard from "@/components/StatCard";
 
 const stats = [
-  { icon: Heart, value: "500+", label: "Women Empowered" },
-  { icon: BookOpen, value: "1200+", label: "Children Educated" },
-  { icon: Users, value: "50+", label: "Community Programs" },
-  { icon: HandHeart, value: "300+", label: "Volunteers" },
+  { icon: Heart, value: "Since 2008", label: "Serving Society" },
+  { icon: BookOpen, value: "1000+", label: "Students Supported" },
+  { icon: Users, value: "6+", label: "Active Programs" },
+  { icon: HandHeart, value: "500+", label: "Families Helped" },
 ];
 
-const programs = [
-  { icon: Heart, title: "Women Empowerment", desc: "Skill development, self-help groups, and vocational training for women." },
-  { icon: BookOpen, title: "Education Support", desc: "Scholarships, tuition centers, and school supplies for underprivileged children." },
-  { icon: Users, title: "Community Development", desc: "Clean water, sanitation, and infrastructure projects for rural communities." },
-  { icon: Stethoscope, title: "Health Awareness", desc: "Free health camps, maternal care, and nutrition awareness drives." },
+const activities = [
+  { icon: ShieldCheck, title: "Dowry Protection", desc: "Awareness campaigns and legal guidance to women against dowry harassment." },
+  { icon: Utensils, title: "Food Donation", desc: "Collecting leftover food from events and distributing it to the hungry and homeless." },
+  { icon: Shirt, title: "Clothes Donation", desc: "Providing clothes to people in slums and tribal areas for a dignified life." },
+  { icon: Stethoscope, title: "Medical Camps", desc: "Blood donation drives and free health check-up camps for communities." },
 ];
 
 const Index = () => (
@@ -31,7 +31,7 @@ const Index = () => (
           transition={{ duration: 0.7 }}
           className="font-display text-4xl md:text-6xl font-bold text-primary-foreground leading-tight"
         >
-          Empowering Women,<br />Transforming Communities
+          Empowering Women,<br />Strengthening Society
         </motion.h1>
         <motion.p
           initial={{ opacity: 0, y: 20 }}
@@ -39,7 +39,7 @@ const Index = () => (
           transition={{ duration: 0.7, delay: 0.2 }}
           className="mt-6 text-lg md:text-xl text-primary-foreground/90 max-w-2xl mx-auto"
         >
-          Sangharsh Mahila Mitra Mandal works towards building a more equitable society through education, empowerment, and compassion.
+          Dedicated to the upliftment of women and social welfare since 2008. Join us in our mission to create a self-reliant and educated society.
         </motion.p>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -47,11 +47,11 @@ const Index = () => (
           transition={{ duration: 0.7, delay: 0.4 }}
           className="mt-8 flex flex-wrap gap-4 justify-center"
         >
-          <Link to="/donate">
+          <a href="https://wa.me/919326579664" target="_blank" rel="noopener noreferrer">
             <Button size="lg" className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 font-semibold text-base px-8">
-              Donate Now
+              <MessageCircle className="h-5 w-5 mr-2" /> Contact on WhatsApp
             </Button>
-          </Link>
+          </a>
           <Link to="/about">
             <Button size="lg" variant="outline" className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground/10 font-semibold text-base px-8">
               Learn More
@@ -81,21 +81,21 @@ const Index = () => (
           className="max-w-3xl mx-auto text-center text-muted-foreground leading-relaxed"
         >
           <p>
-            Founded in 2010, Sangharsh Mahila Mitra Mandal is a non-profit organization committed to uplifting marginalized women and children across Maharashtra. Through sustainable community programs, vocational training, and education initiatives, we strive to create lasting change.
+            Sangharsh Mahila Mandal is a registered Non-Governmental Organization dedicated to the upliftment of women and the welfare of society. Founded in 2008, the NGO focuses on providing support, education, and essential resources to marginalized sections of society in order to build a self-reliant and educated community.
           </p>
           <div className="mt-4 flex items-center justify-center gap-3">
-            <Shield className="h-5 w-5 text-secondary" />
-            <span className="text-sm font-medium text-secondary">Registered NGO | Trusted by 50+ Partner Organizations</span>
+            <ShieldCheck className="h-5 w-5 text-secondary" />
+            <span className="text-sm font-medium text-secondary">Registered NGO | Reg. No. 2739/2008</span>
           </div>
         </motion.div>
       </div>
     </section>
 
-    {/* Programs preview */}
+    {/* Activities preview */}
     <section className="py-16 container mx-auto px-4">
-      <SectionHeading title="Our Programs" subtitle="Flagship initiatives driving real impact in communities." />
+      <SectionHeading title="Our Activities" subtitle="Key initiatives driving real impact in communities." />
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {programs.map((p, i) => (
+        {activities.map((p, i) => (
           <motion.div
             key={p.title}
             initial={{ opacity: 0, y: 20 }}
@@ -113,8 +113,8 @@ const Index = () => (
         ))}
       </div>
       <div className="text-center mt-8">
-        <Link to="/programs">
-          <Button variant="outline-hero">View All Programs</Button>
+        <Link to="/activities">
+          <Button variant="outline-hero">View All Activities</Button>
         </Link>
       </div>
     </section>
@@ -122,15 +122,15 @@ const Index = () => (
     {/* CTA */}
     <section className="hero-gradient py-16">
       <div className="container mx-auto px-4 text-center">
-        <h2 className="font-display text-3xl md:text-4xl font-bold text-primary-foreground">Make a Difference Today</h2>
+        <h2 className="font-display text-3xl md:text-4xl font-bold text-primary-foreground">Join Our Mission</h2>
         <p className="mt-4 text-primary-foreground/80 max-w-xl mx-auto">
-          Your contribution helps us empower more women, educate more children, and build stronger communities.
+          Together we can empower more women, support more families, and build stronger communities.
         </p>
-        <Link to="/donate">
+        <a href="https://wa.me/919326579664" target="_blank" rel="noopener noreferrer">
           <Button size="lg" className="mt-6 bg-primary-foreground text-primary hover:bg-primary-foreground/90 font-semibold px-10">
-            Donate Now
+            <MessageCircle className="h-5 w-5 mr-2" /> Get In Touch
           </Button>
-        </Link>
+        </a>
       </div>
     </section>
   </div>

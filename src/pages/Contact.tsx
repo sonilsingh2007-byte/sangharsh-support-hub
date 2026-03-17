@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Mail, Phone, MapPin, Send } from "lucide-react";
+import { Mail, Phone, MapPin, Send, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -11,19 +11,19 @@ import { saveMessage } from "@/lib/database";
 const Contact = () => {
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [form, setForm] = useState({ name: "", phone: "", message: "" });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!form.name.trim() || !form.email.trim() || !form.message.trim()) {
+    if (!form.name.trim() || !form.phone.trim() || !form.message.trim()) {
       toast({ title: "Please fill all fields", variant: "destructive" });
       return;
     }
     setLoading(true);
     try {
-      await saveMessage(form);
+      await saveMessage({ ...form, email: form.phone });
       toast({ title: "Message sent successfully!", description: "We'll get back to you soon." });
-      setForm({ name: "", email: "", message: "" });
+      setForm({ name: "", phone: "", message: "" });
     } catch {
       toast({ title: "Failed to send message", variant: "destructive" });
     } finally {
@@ -49,24 +49,35 @@ const Contact = () => {
                 <MapPin className="h-5 w-5 text-primary mt-1" />
                 <div>
                   <p className="font-semibold text-foreground">Address</p>
-                  <p>123 Gandhi Road, Shivaji Nagar, Pune, Maharashtra 411005</p>
+                  <p>Mumbai – 400070, Maharashtra, India</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
                 <Phone className="h-5 w-5 text-primary mt-1" />
                 <div>
                   <p className="font-semibold text-foreground">Phone</p>
-                  <p>+91 98765 43210</p>
+                  <p>+91 9326579664</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
                 <Mail className="h-5 w-5 text-primary mt-1" />
                 <div>
                   <p className="font-semibold text-foreground">Email</p>
-                  <p>info@sangharsh-mmm.org</p>
+                  <p>Pawarseema412@gmail.com</p>
                 </div>
               </div>
             </div>
+
+            {/* WhatsApp Button */}
+            <a
+              href="https://wa.me/919326579664"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 mt-8 px-6 py-3 rounded-lg bg-[hsl(142,70%,45%)] text-white font-semibold hover:bg-[hsl(142,70%,40%)] transition-colors"
+            >
+              <MessageCircle className="h-5 w-5" />
+              Chat on WhatsApp
+            </a>
           </div>
 
           <motion.form
@@ -84,11 +95,11 @@ const Contact = () => {
               maxLength={100}
             />
             <Input
-              type="email"
-              placeholder="Your Email"
-              value={form.email}
-              onChange={(e) => setForm({ ...form, email: e.target.value })}
-              maxLength={255}
+              type="tel"
+              placeholder="Your Phone Number"
+              value={form.phone}
+              onChange={(e) => setForm({ ...form, phone: e.target.value })}
+              maxLength={15}
             />
             <Textarea
               placeholder="Your Message"

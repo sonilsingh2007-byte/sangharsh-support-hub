@@ -6,8 +6,8 @@ import { Button } from "@/components/ui/button";
 const navLinks = [
   { to: "/", label: "Home" },
   { to: "/about", label: "About Us" },
-  { to: "/programs", label: "Programs" },
-  { to: "/gallery", label: "Gallery" },
+  { to: "/activities", label: "Activities" },
+  { to: "/certificate", label: "Certificate" },
   { to: "/contact", label: "Contact" },
 ];
 
@@ -21,7 +21,7 @@ const Navbar = () => {
         <Link to="/" className="flex items-center gap-2">
           <Heart className="h-7 w-7 text-primary fill-primary" />
           <span className="font-display text-lg font-bold text-foreground leading-tight">
-            Sangharsh<br className="sm:hidden" /> Mahila Mitra Mandal
+            Sangharsh<br className="sm:hidden" /> Mahila Mandal
           </span>
         </Link>
 
@@ -40,11 +40,15 @@ const Navbar = () => {
               {l.label}
             </Link>
           ))}
-          <Link to="/donate">
+          <a
+            href="https://wa.me/919326579664"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <Button variant="hero" size="sm" className="ml-2">
-              Donate Now
+              WhatsApp Us
             </Button>
-          </Link>
+          </a>
         </div>
 
         {/* Mobile toggle */}
@@ -70,11 +74,16 @@ const Navbar = () => {
               {l.label}
             </Link>
           ))}
-          <Link to="/donate" onClick={() => setOpen(false)}>
+          <a
+            href="https://wa.me/919326579664"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => setOpen(false)}
+          >
             <Button variant="hero" size="sm" className="w-full mt-2">
-              Donate Now
+              WhatsApp Us
             </Button>
-          </Link>
+          </a>
         </div>
       )}
     </nav>
