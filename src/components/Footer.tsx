@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { Lock } from "lucide-react";
 import { Heart, Mail, Phone, MapPin } from "lucide-react";
 
 const Footer = () => (
