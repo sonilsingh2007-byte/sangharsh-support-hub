@@ -7,8 +7,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Index from "./pages/Index";
 import About from "./pages/About";
-import Programs from "./pages/Programs";
-import Gallery from "./pages/Gallery";
+import Activities from "./pages/Programs";
+import Certificate from "./pages/Certificate";
 import Contact from "./pages/Contact";
 import Donate from "./pages/Donate";
 import AdminLogin from "./pages/AdminLogin";
@@ -27,8 +27,8 @@ const Layout = () => {
       <Routes>
         <Route path="/" element={<Index />} />
         <Route path="/about" element={<About />} />
-        <Route path="/programs" element={<Programs />} />
-        <Route path="/gallery" element={<Gallery />} />
+        <Route path="/activities" element={<Activities />} />
+        <Route path="/certificate" element={<Certificate />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/donate" element={<Donate />} />
         <Route path="/admin/login" element={<AdminLogin />} />
