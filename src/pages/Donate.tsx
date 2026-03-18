@@ -33,7 +33,7 @@ const Donate = () => {
     try {
       await saveDonation({ ...form, donation_amount: amount });
       setSuccess(true);
-      toast({ title: "Thank you for your donation!", description: `₹${amount} received (Demo Mode)` });
+      toast({ title: "Thank you for your support!", description: "This donation is recorded for demonstration purposes." });
     } catch {
       toast({ title: "Something went wrong", variant: "destructive" });
     } finally {
@@ -54,7 +54,7 @@ const Donate = () => {
           </div>
           <h2 className="font-display text-2xl font-bold text-foreground">Thank You!</h2>
           <p className="mt-3 text-muted-foreground">
-            Your donation of ₹{form.donation_amount} has been recorded successfully. This is a demo — no real payment was processed.
+            Your donation of ₹{form.donation_amount} has been recorded successfully. This is a demonstration — no real payment was processed.
           </p>
           <Button variant="hero" className="mt-6" onClick={() => { setSuccess(false); setForm({ donor_name: "", email: "", phone: "", donation_amount: "", message: "" }); }}>
             Make Another Donation
@@ -68,18 +68,18 @@ const Donate = () => {
     <div>
       <section className="hero-gradient py-20">
         <div className="container mx-auto px-4 text-center">
-          <h1 className="font-display text-4xl md:text-5xl font-bold text-primary-foreground">Donate</h1>
-          <p className="mt-4 text-primary-foreground/80">Your generosity can change lives. (Demo Mode)</p>
+          <h1 className="font-display text-4xl md:text-5xl font-bold text-primary-foreground">Support Our Cause</h1>
+          <p className="mt-4 text-primary-foreground/80">Your generosity can change lives. (Demonstration Mode)</p>
         </div>
       </section>
 
-      <section className="py-16 container mx-auto px-4 max-w-lg">
+      <section className="py-20 container mx-auto px-4 max-w-lg">
         <SectionHeading title="Make a Donation" subtitle="All fields marked are required. No real payment is processed." />
         <motion.form
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           onSubmit={handleSubmit}
-          className="bg-card rounded-xl p-6 border shadow-sm space-y-4"
+          className="bg-card rounded-xl p-8 border shadow-sm space-y-5"
         >
           <Input placeholder="Full Name *" value={form.donor_name} onChange={(e) => setForm({ ...form, donor_name: e.target.value })} maxLength={100} />
           <Input type="email" placeholder="Email *" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} maxLength={255} />

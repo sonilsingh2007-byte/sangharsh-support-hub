@@ -13,6 +13,13 @@ const Contact = () => {
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({ name: "", phone: "", message: "" });
 
+  const handleDemoClick = () => {
+    toast({
+      title: "Demonstration Website",
+      description: "This is a demonstration website created for a college project. Direct messaging functionality is not enabled.",
+    });
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.name.trim() || !form.phone.trim() || !form.message.trim()) {
@@ -22,7 +29,7 @@ const Contact = () => {
     setLoading(true);
     try {
       await saveMessage({ ...form, email: form.phone });
-      toast({ title: "Message sent successfully!", description: "We'll get back to you soon." });
+      toast({ title: "Message Recorded", description: "Your message has been recorded for demonstration purposes." });
       setForm({ name: "", phone: "", message: "" });
     } catch {
       toast({ title: "Failed to send message", variant: "destructive" });
@@ -40,44 +47,49 @@ const Contact = () => {
         </div>
       </section>
 
-      <section className="py-16 container mx-auto px-4">
-        <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
+      <section className="py-20 container mx-auto px-4">
+        <div className="grid md:grid-cols-2 gap-14 max-w-5xl mx-auto">
           <div>
             <SectionHeading title="Get In Touch" center={false} />
-            <div className="space-y-5 text-muted-foreground">
-              <div className="flex items-start gap-3">
-                <MapPin className="h-5 w-5 text-primary mt-1" />
+            <div className="space-y-6 text-muted-foreground">
+              <div className="flex items-start gap-4">
+                <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                  <MapPin className="h-5 w-5 text-primary" />
+                </div>
                 <div>
                   <p className="font-semibold text-foreground">Address</p>
-                  <p>Mumbai – 400070, Maharashtra, India</p>
+                  <p>Mumbai, Maharashtra, India</p>
                 </div>
               </div>
-              <div className="flex items-start gap-3">
-                <Phone className="h-5 w-5 text-primary mt-1" />
+              <div className="flex items-start gap-4">
+                <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                  <Phone className="h-5 w-5 text-primary" />
+                </div>
                 <div>
                   <p className="font-semibold text-foreground">Phone</p>
-                  <p>+91 9326579664</p>
+                  <p>+91 9876543210</p>
                 </div>
               </div>
-              <div className="flex items-start gap-3">
-                <Mail className="h-5 w-5 text-primary mt-1" />
+              <div className="flex items-start gap-4">
+                <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                  <Mail className="h-5 w-5 text-primary" />
+                </div>
                 <div>
                   <p className="font-semibold text-foreground">Email</p>
-                  <p>Pawarseema412@gmail.com</p>
+                  <p>contact@sangharshngo.org</p>
                 </div>
               </div>
             </div>
 
-            {/* WhatsApp Button */}
-            <a
-              href="https://wa.me/919326579664"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 mt-8 px-6 py-3 rounded-lg bg-[hsl(142,70%,45%)] text-white font-semibold hover:bg-[hsl(142,70%,40%)] transition-colors"
+            {/* WhatsApp Button - Demo only */}
+            <Button
+              onClick={handleDemoClick}
+              className="mt-8 bg-[hsl(142,70%,45%)] text-white font-semibold hover:bg-[hsl(142,70%,40%)]"
             >
-              <MessageCircle className="h-5 w-5" />
+              <MessageCircle className="h-5 w-5 mr-2" />
               Chat on WhatsApp
-            </a>
+            </Button>
+            <p className="text-xs text-muted-foreground mt-2">* This is a demonstration feature</p>
           </div>
 
           <motion.form
@@ -85,7 +97,7 @@ const Contact = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             onSubmit={handleSubmit}
-            className="bg-card rounded-xl p-6 border shadow-sm space-y-4"
+            className="bg-card rounded-xl p-8 border shadow-sm space-y-5"
           >
             <h3 className="font-display text-xl font-semibold text-foreground">Send a Message</h3>
             <Input

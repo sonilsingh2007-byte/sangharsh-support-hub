@@ -8,6 +8,7 @@ const navLinks = [
   { to: "/about", label: "About Us" },
   { to: "/activities", label: "Activities" },
   { to: "/certificate", label: "Certificate" },
+  { to: "/donate", label: "Donate" },
   { to: "/contact", label: "Contact" },
 ];
 
@@ -40,15 +41,6 @@ const Navbar = () => {
               {l.label}
             </Link>
           ))}
-          <a
-            href="https://wa.me/919326579664"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Button variant="hero" size="sm" className="ml-2">
-              WhatsApp Us
-            </Button>
-          </a>
         </div>
 
         {/* Mobile toggle */}
@@ -74,16 +66,6 @@ const Navbar = () => {
               {l.label}
             </Link>
           ))}
-          <a
-            href="https://wa.me/919326579664"
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() => setOpen(false)}
-          >
-            <Button variant="hero" size="sm" className="w-full mt-2">
-              WhatsApp Us
-            </Button>
-          </a>
         </div>
       )}
     </nav>

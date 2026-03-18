@@ -20,7 +20,7 @@ const AdminLogin = () => {
       if (adminLogin(username, password)) {
         navigate("/admin");
       } else {
-        toast({ title: "Invalid credentials", description: "Use admin / admin123", variant: "destructive" });
+        toast({ title: "Access denied.", variant: "destructive" });
       }
       setLoading(false);
     }, 500);
@@ -34,7 +34,7 @@ const AdminLogin = () => {
             <Lock className="h-7 w-7 text-primary-foreground" />
           </div>
           <h1 className="font-display text-2xl font-bold text-foreground">Admin Login</h1>
-          <p className="text-sm text-muted-foreground mt-1">Sangharsh Mahila Mitra Mandal</p>
+          <p className="text-sm text-muted-foreground mt-1">Sangharsh Mahila Mandal</p>
         </div>
         <form onSubmit={handleSubmit} className="bg-card rounded-xl p-6 border shadow-sm space-y-4">
           <Input placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
@@ -42,7 +42,6 @@ const AdminLogin = () => {
           <Button type="submit" variant="hero" className="w-full" disabled={loading}>
             {loading ? "Logging in..." : "Login"}
           </Button>
-          <p className="text-xs text-center text-muted-foreground">Demo: username <strong>admin</strong>, password <strong>admin123</strong></p>
         </form>
       </div>
     </div>
