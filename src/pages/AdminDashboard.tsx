@@ -21,8 +21,19 @@ const AdminDashboard = () => {
       navigate("/admin/login");
       return;
     }
-    setDonations(getDonations());
-    setMessages(getMessages());
+
+    const loadData = () => {
+      setDonations(getDonations());
+      setMessages(getMessages());
+    };
+
+    loadData(); // Load immediately when page opens
+
+    // Auto-refresh every 2 seconds to show new submissions
+    const intervalId = setInterval(loadData, 2000);
+
+    // Cleanup interval when component unmounts
+    return () => clearInterval(intervalId);
   }, [navigate]);
 
   const handleDeleteDonation = (id: string) => {
