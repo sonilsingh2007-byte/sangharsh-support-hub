@@ -54,11 +54,21 @@ function initDummyData() {
 initDummyData();
 
 export function getDonations(): Donation[] {
-  return JSON.parse(localStorage.getItem(DONATIONS_KEY) || "[]");
+  try {
+    return JSON.parse(localStorage.getItem(DONATIONS_KEY) || "[]");
+  } catch (e) {
+    console.error("Error parsing donations:", e);
+    return [];
+  }
 }
 
 export function getMessages(): Message[] {
-  return JSON.parse(localStorage.getItem(MESSAGES_KEY) || "[]");
+  try {
+    return JSON.parse(localStorage.getItem(MESSAGES_KEY) || "[]");
+  } catch (e) {
+    console.error("Error parsing messages:", e);
+    return [];
+  }
 }
 
 export async function saveDonation(data: Omit<Donation, "id" | "date">): Promise<void> {
