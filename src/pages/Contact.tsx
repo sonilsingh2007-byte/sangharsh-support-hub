@@ -11,7 +11,7 @@ import { saveMessage } from "@/lib/database";
 const Contact = () => {
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
-  const [form, setForm] = useState({ name: "", phone: "", message: "" });
+  const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
 
   const handleDemoClick = () => {
     toast({
@@ -22,15 +22,15 @@ const Contact = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!form.name.trim() || !form.phone.trim() || !form.message.trim()) {
+    if (!form.name.trim() || !form.email.trim() || !form.phone.trim() || !form.message.trim()) {
       toast({ title: "Please fill all fields", variant: "destructive" });
       return;
     }
     setLoading(true);
     try {
-      await saveMessage({ ...form, email: form.phone });
+      await saveMessage({ name: form.name, email: form.email, message: form.message });
       toast({ title: "Message Recorded", description: "Your message has been recorded for demonstration purposes." });
-      setForm({ name: "", phone: "", message: "" });
+      setForm({ name: "", email: "", phone: "", message: "" });
     } catch {
       toast({ title: "Failed to send message", variant: "destructive" });
     } finally {
@@ -105,6 +105,13 @@ const Contact = () => {
               value={form.name}
               onChange={(e) => setForm({ ...form, name: e.target.value })}
               maxLength={100}
+            />
+            <Input
+              type="email"
+              placeholder="Your Email"
+              value={form.email}
+              onChange={(e) => setForm({ ...form, email: e.target.value })}
+              maxLength={255}
             />
             <Input
               type="tel"

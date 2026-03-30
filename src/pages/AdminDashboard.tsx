@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { IndianRupee, Users, Mail, Layers, Trash2, LogOut } from "lucide-react";
+import { IndianRupee, Users, Mail, Layers, Trash2, LogOut, RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import {
@@ -16,24 +16,45 @@ const AdminDashboard = () => {
   const [donations, setDonations] = useState<Donation[]>([]);
   const [messages, setMessages] = useState<Message[]>([]);
 
+  const loadData = useCallback(() => {
+    setDonations(getDonations());
+    setMessages(getMessages());
+  }, []);
+
   useEffect(() => {
     if (!isAdminLoggedIn()) {
       navigate("/admin/login");
       return;
     }
-    setDonations(getDonations());
-    setMessages(getMessages());
-  }, [navigate]);
+    loadData();
+
+    // Refresh data whenever this tab regains focus (e.g. user switched tabs)
+    const handleFocus = () => loadData();
+    window.addEventListener("focus", handleFocus);
+
+    // Refresh data when localStorage is updated from another tab
+    const handleStorage = (e: StorageEvent) => {
+      if (e.key === null || e.key?.startsWith("smm_")) {
+        loadData();
+      }
+    };
+    window.addEventListener("storage", handleStorage);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+      window.removeEventListener("storage", handleStorage);
+    };
+  }, [navigate, loadData]);
 
   const handleDeleteDonation = (id: string) => {
     deleteDonation(id);
-    setDonations(getDonations());
+    loadData();
     toast({ title: "Donation record deleted" });
   };
 
   const handleDeleteMessage = (id: string) => {
     deleteMessage(id);
-    setMessages(getMessages());
+    loadData();
     toast({ title: "Message deleted" });
   };
 
@@ -57,9 +78,14 @@ const AdminDashboard = () => {
       <header className="border-b bg-card sticky top-0 z-40">
         <div className="container mx-auto px-4 h-14 flex items-center justify-between">
           <h1 className="font-display text-lg font-bold text-foreground">Admin Dashboard</h1>
-          <Button variant="ghost" size="sm" onClick={handleLogout}>
-            <LogOut className="h-4 w-4 mr-1" /> Logout
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button variant="ghost" size="sm" onClick={loadData}>
+              <RefreshCw className="h-4 w-4 mr-1" /> Refresh
+            </Button>
+            <Button variant="ghost" size="sm" onClick={handleLogout}>
+              <LogOut className="h-4 w-4 mr-1" /> Logout
+            </Button>
+          </div>
         </div>
       </header>
 

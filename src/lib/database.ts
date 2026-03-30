@@ -1,6 +1,8 @@
 // Local storage-based database for demo purposes
 // In production, this would connect to Supabase/backend
 
+const IS_DEV = import.meta.env.DEV;
+
 export interface Donation {
   id: string;
   donor_name: string;
@@ -54,33 +56,53 @@ function initDummyData() {
 initDummyData();
 
 export function getDonations(): Donation[] {
-  return JSON.parse(localStorage.getItem(DONATIONS_KEY) || "[]");
+  try {
+    const raw = localStorage.getItem(DONATIONS_KEY);
+    const parsed = JSON.parse(raw || "[]");
+    if (IS_DEV) console.log("[DB] getDonations →", parsed.length, "records");
+    return Array.isArray(parsed) ? parsed : [];
+  } catch (err) {
+    if (IS_DEV) console.error("[DB] getDonations parse error:", err);
+    return [];
+  }
 }
 
 export function getMessages(): Message[] {
-  return JSON.parse(localStorage.getItem(MESSAGES_KEY) || "[]");
+  try {
+    const raw = localStorage.getItem(MESSAGES_KEY);
+    const parsed = JSON.parse(raw || "[]");
+    if (IS_DEV) console.log("[DB] getMessages →", parsed.length, "records");
+    return Array.isArray(parsed) ? parsed : [];
+  } catch (err) {
+    if (IS_DEV) console.error("[DB] getMessages parse error:", err);
+    return [];
+  }
 }
 
 export async function saveDonation(data: Omit<Donation, "id" | "date">): Promise<void> {
   await new Promise((r) => setTimeout(r, 800)); // simulate network
   const donations = getDonations();
-  donations.push({
+  const newEntry: Donation = {
     ...data,
     id: "d" + Date.now(),
     date: new Date().toISOString().split("T")[0],
-  });
+  };
+  donations.push(newEntry);
   localStorage.setItem(DONATIONS_KEY, JSON.stringify(donations));
+  if (IS_DEV) console.log("[DB] saveDonation → saved id:", newEntry.id, "| total:", donations.length);
 }
 
 export async function saveMessage(data: Omit<Message, "id" | "date">): Promise<void> {
   await new Promise((r) => setTimeout(r, 800));
   const messages = getMessages();
-  messages.push({
+  const newEntry: Message = {
     ...data,
     id: "m" + Date.now(),
     date: new Date().toISOString().split("T")[0],
-  });
+  };
+  messages.push(newEntry);
   localStorage.setItem(MESSAGES_KEY, JSON.stringify(messages));
+  if (IS_DEV) console.log("[DB] saveMessage → saved id:", newEntry.id, "| total:", messages.length);
 }
 
 export function deleteDonation(id: string): void {
